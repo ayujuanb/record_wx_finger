@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>设备指纹</title>    
+</head>
+<body>
+<script src="./jquery.js"></script>
+<script src="./js.js"></script>
+
+<script type="text/javascript">
+
+  // 设备指纹
+  var localfinger=localStorage.getItem("device_finger");
+  var coofinger=getCookies("device_finger");
+  var device_finger=localfinger ? localfinger : coofinger ? coofinger : "";
+
+  // userAgent
+  var userAgent=encodeURIComponent(navigator.userAgent);
+
+  //platform
+  var platform=navigator.platform;
+
+  // srcScreenSize
+  var srcScreenSize=window.screen.height+"x"+window.screen.width+"x"+screen.colorDepth+"x"+screen.width+"*"+screen.height
+
+  // scrAvailSize
+  var scrAvailSize=window.screen.availHeight+"*"+window.screen.availWidth;
+
+  // 获取浏览器版本号
+  var browserVersion = encodeURIComponent(getBrowserInfo().ver+"("+platform+")");
+
+  // javaEnabled
+  var javaEnabled=navigator.javaEnabled() ? 1 :0;
+
+  //获取cookieEnabled
+  var cookieEnabled=navigator.cookieEnabled ? 1 : 0;
+
+  //获取时区
+  var d = new Date()
+  var timeZone=d.getTimezoneOffset()/60;
+  
+  //获取flash版本号
+  var fls = flashChecker();
+  flashVersion=fls.f ? encodeURIComponent(fls.v) : 0;
+
+  // openDatabase
+  var openDatabase= window.openDatabase ? 1 : 0;
+
+  //indexedDb
+  var indexedDb=fingerprint2.hasIndexedDB() ? 1 : 0;
+
+  //storeDb
+  var sessionSt=fingerprint2.hasSessionStorage() ? 1 : 0;
+  var localSt=fingerprint2.hasLocalStorage() ? 1 : 0;
+  var storeDb=sessionSt+"*"+localSt+"*"+indexedDb+"*"+openDatabase;
+
+  //doNotTrack
+  var doNotTrack=fingerprint2.getDoNotTrack();
+
+  //touchSupport
+  var touchSupport=fingerprint2.getTouchSupport();
+
+  //adblock
+  var adblock=fingerprint2.getAdBlock() ? 1 : 0;
+
+  //jsFonts
+  var jsFonts=fingerprint2.jsFontsKey();
+
+  // plugins
+  var plugins=fingerprint2.pluginsKey();
+
+  // mimeTypes
+  var mimeTypes=fingerprint2.mimeTypes();
+
+
+  //传入的参数
+  var collectData = {
+    userAgent: userAgent,       
+    srcScreenSize: srcScreenSize,
+    scrAvailSize: scrAvailSize,
+    browserVersion: browserVersion,
+    javaEnabled: javaEnabled,
+    mimeTypes: mimeTypes,
+    os: platform,
+    plugins: plugins,
+    browserLanguage: navigator.language,
+    cookieEnabled: cookieEnabled,
+    timeZone: timeZone,
+    flashVersion: flashVersion,
+    storeDb: storeDb,
+    doNotTrack: doNotTrack,
+    adblock: adblock,
+    touchSupport: touchSupport,
+    jsFonts: jsFonts
+  }
+  
+
+  var data={};
+  data["api_key"]="nd_app";
+  data["device_finger"]=device_finger;
+  data["collectData"]=collectData;
+  data=JSON.stringify(data);
+  
+
+  $.ajax({
+    url: "/papp/collectDataJS.do",
+    type: "post",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    async: true,
+    data: data,
+    success: function(data){
+      device_finger=data.device_finger;
+      localStorage.setItem("device_finger",device_finger);
+      setCookies("device_finger",device_finger);
+
+    },
+    error: function(error) {
+      console.log(error);
+    }
+
+  });
+
+  
+  // $.ajax({
+  //   url: "/papp/sdkExcepition.do",
+  //   type: "post",
+  //   dataType: "json",
+  //   async: true,
+  //   data: {
+  //     "api_key" : "nd_app",
+  //     "clientType" : collectData.os,
+  //     "device_finger" : device_finger
+
+  //   },
+  //   success: function(data){
+      
+
+  //   },
+  //   error: function(error) {
+  //     console.log(error);
+  //   }
+
+  // });
+ 
+
+</script>
+</body>
+</html>

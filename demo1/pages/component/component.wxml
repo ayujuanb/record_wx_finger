@@ -1,0 +1,6 @@
+<import src="../common/template.wxml"/>
+<template is="msgItem" data="{{...item}}"/>
+<include src="../common/process.wxml"/>
+<include src="../common/icon.wxml"/>
+<include src="../common/switch.wxml"/>
+<include src="../common/slide.wxml"/>

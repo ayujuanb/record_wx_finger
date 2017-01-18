@@ -1,0 +1,6 @@
+<progress 
+    percent="100"
+    show-info="true" 
+    stroke-width="5"
+    color="red"
+    active="true"/>

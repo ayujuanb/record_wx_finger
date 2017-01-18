@@ -1,0 +1,39 @@
+<!--成功图标-->
+<icon type="success" size="40"/>
+
+<!--安全成功标志图标-->
+<icon type="safe_success" size="40"/>
+
+<!--提示信息图标-->
+<icon type="info" size="40"/>
+
+<!--带圆的信息提示图标-->
+<icon type="info_circle" size="40"/>
+
+<!--不带圆的成功图标-->
+<icon type="success_no_circle" size="40"/>
+
+<!--带圆的成功图标-->
+<icon type="success_circle" size="40"/>
+
+<!--警告图标-->
+<icon type="warn" size="40"/>
+
+<!--带圆的等待图标-->
+<icon type="waiting_circle" size="40"/>
+
+<!--等待图标-->
+<icon type="waiting" size="40"/>
+
+<!--下载图标-->
+<icon type="download" size="40"/>
+
+<!--取消图标-->
+<icon type="cancel" size="40"/>
+
+<!--清除图标-->
+<icon type="clear" size="40"/>
+
+
+<!--改变颜色的success-->
+<icon type="success" size="40" color="red"/>
